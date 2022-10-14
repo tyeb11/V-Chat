@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { mongo, Schema } from "mongoose";
 import bcrypt from "bcryptjs";
 import validator from "validator";
 
@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema(
           throw new Error("password is too weak");
         }
       },
+    },
+    id: {
+      type: Number,
+      unique: true,
     },
   },
   { timestamps: true }
