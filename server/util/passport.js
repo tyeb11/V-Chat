@@ -1,9 +1,14 @@
 import chalk from "chalk";
 import passport from "passport";
 import passportCustom from "passport-custom";
+import passportGoogle from "passport-google-oauth20";
+import passportGithub from "passport-github2";
 import { User } from "../model/user.js";
+import mongoose from "mongoose";
 
 const CustomStrategy = passportCustom.Strategy;
+const GoogleStartegy = passportGoogle.Strategy;
+const GithubStrategy = passportGithub.Strategy;
 
 passport.serializeUser((user, done) => {
   done(null, user);
@@ -11,7 +16,6 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (user, done) => {
   const { _id } = await User.findById(user);
-
   done(null, _id);
 });
 
@@ -26,4 +30,30 @@ passport.use(
     await user.save();
     done(null, user._id);
   })
+);
+
+passport.use(
+  new GoogleStartegy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL,
+      proxy: true,
+    },
+    async function (accessToken, refreshToken, profile, done) {
+      const { email, name, sub } = profile._json;
+      const existingUser = await User.findOne({ id: sub });
+      if (existingUser) {
+        return done(null, existingUser._id);
+      }
+      const user = await new User({
+        id: sub,
+        username: name,
+        email: email,
+        password: sub,
+      });
+      await user.save();
+      done(null, user._id);
+    }
+  )
 );
