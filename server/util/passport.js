@@ -16,6 +16,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (user, done) => {
   const { _id } = await User.findById(user);
+
   done(null, _id);
 });
 
@@ -41,6 +42,7 @@ passport.use(
       proxy: true,
     },
     async function (accessToken, refreshToken, profile, done) {
+      console.log(profile);
       const { email, name, sub } = profile._json;
       const existingUser = await User.findOne({ id: sub });
       if (existingUser) {
@@ -51,6 +53,31 @@ passport.use(
         username: name,
         email: email,
         password: sub,
+      });
+      await user.save();
+      done(null, user._id);
+    }
+  )
+);
+passport.use(
+  new GithubStrategy(
+    {
+      clientID: process.env.GITHUB_CLIENT_ID,
+      clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      callbackURL: process.env.GITHUB_CALLBACK_URL,
+      proxy: true,
+    },
+    async function (accessToken, refreshToken, profile, done) {
+      const { id, username } = profile;
+      const existingUser = await User.findOne({ id });
+      if (existingUser) {
+        return done(null, existingUser._id);
+      }
+      const user = await new User({
+        id,
+        username,
+        email: `${username}@github.com`,
+        password: id,
       });
       await user.save();
       done(null, user._id);
