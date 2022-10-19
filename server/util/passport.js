@@ -4,7 +4,9 @@ import passportCustom from "passport-custom";
 import passportGoogle from "passport-google-oauth20";
 import passportGithub from "passport-github2";
 import { User } from "../model/user.js";
-import mongoose from "mongoose";
+
+import bcrypt from "bcryptjs";
+import { customVerify } from "./customVerify.js";
 
 const CustomStrategy = passportCustom.Strategy;
 const GoogleStartegy = passportGoogle.Strategy;
@@ -15,21 +17,36 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (user, done) => {
-  const { _id } = await User.findById(user);
+  const result = await User.findOne({ _id: user });
 
-  done(null, _id);
+  if (result) return done(null, result._id);
+  done(null, user);
 });
 
 passport.use(
   "custom",
+
   new CustomStrategy(async function (req, done) {
-    const existingUser = await User.findOne({ email: req.body.email });
-    if (existingUser) {
-      return done(null, existingUser._id);
+    try {
+      const { username, email, password } = req.body;
+      if (!username || !email || !password) {
+        customVerify(req, done);
+      } else {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+          if (await bcrypt.compare(password, existingUser.password)) {
+            return done(null, existingUser._id);
+          }
+
+          return done("incorrect email or password");
+        }
+        const user = await new User(req.body);
+        await user.save();
+        done(null, user._id);
+      }
+    } catch (e) {
+      console.log(e);
     }
-    const user = await new User(req.body);
-    await user.save();
-    done(null, user._id);
   })
 );
 
@@ -42,20 +59,21 @@ passport.use(
       proxy: true,
     },
     async function (accessToken, refreshToken, profile, done) {
-      console.log(profile);
-      const { email, name, sub } = profile._json;
-      const existingUser = await User.findOne({ id: sub });
-      if (existingUser) {
-        return done(null, existingUser._id);
+      try {
+        const { displayName, id } = profile;
+        const existingUser = await User.findOne({ id });
+        if (existingUser) {
+          return done(null, existingUser._id);
+        }
+        const user = await new User({
+          id,
+          username: displayName,
+        });
+        await user.save();
+        done(null, user._id);
+      } catch (e) {
+        console.log(e);
       }
-      const user = await new User({
-        id: sub,
-        username: name,
-        email: email,
-        password: sub,
-      });
-      await user.save();
-      done(null, user._id);
     }
   )
 );
@@ -68,19 +86,22 @@ passport.use(
       proxy: true,
     },
     async function (accessToken, refreshToken, profile, done) {
-      const { id, username } = profile;
-      const existingUser = await User.findOne({ id });
-      if (existingUser) {
-        return done(null, existingUser._id);
+      try {
+        const { id, username } = profile;
+
+        const existingUser = await User.findOne({ id });
+        if (existingUser) {
+          return done(null, existingUser._id);
+        }
+        const user = await new User({
+          id,
+          username,
+        });
+        await user.save();
+        done(null, user._id);
+      } catch (e) {
+        console.log(e);
       }
-      const user = await new User({
-        id,
-        username,
-        email: `${username}@github.com`,
-        password: id,
-      });
-      await user.save();
-      done(null, user._id);
     }
   )
 );

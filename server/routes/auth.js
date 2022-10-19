@@ -1,13 +1,16 @@
 import passport from "passport";
 import { User } from "../model/user.js";
+import { customVerify } from "../util/customVerify.js";
 
 export default (app) => {
   app.post(
     "/api/auth/custom",
-    passport.authenticate("custom", { failureRedirect: "/" }),
+
+    passport.authenticate("custom", {
+      failureRedirect: "/",
+    }),
     (req, res) => {
       res.send(req.user);
-      //res.redirect("/chat");
     }
   );
   app.get(
@@ -27,7 +30,9 @@ export default (app) => {
 
   app.get(
     "/api/auth/github",
-    passport.authenticate("github", { failureRedirect: "/" })
+    passport.authenticate("github", {
+      failureRedirect: "/",
+    })
   );
   app.get(
     "/api/auth/github/callback",
@@ -36,9 +41,9 @@ export default (app) => {
       res.redirect("/api/auth/current-user");
     }
   );
-  app.delete("/api/auth/logout", async (req, res) => {
+  app.get("/api/auth/logout", async (req, res) => {
     const user = await User.findByIdAndDelete(req.user);
-    console.log(user);
+    
     await req.logout();
     req.session = null;
     res.clearCookie("session.sig");
