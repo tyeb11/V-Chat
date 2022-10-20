@@ -4,6 +4,8 @@ import cookieSession from "cookie-session";
 import passport from "passport";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/user.js";
+import chatRoutes from "./routes/chat.js";
+import messageRoutes from "./routes/message.js";
 
 import "./util/dbconnect.js";
 import "./util/passport.js";
@@ -22,6 +24,8 @@ app.use(passport.session());
 
 authRoutes(app);
 userRoutes(app);
+chatRoutes(app);
+messageRoutes(app);
 
 app.listen(process.env.PORT, () => {
   console.log(chalk.green(`server listening on port ${process.env.PORT} ...`));
