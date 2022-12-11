@@ -32,13 +32,36 @@ export default (app) => {
   app.get("/api/message", verify, async (req, res) => {
     const { chatId } = req.body;
     if (!chatId) {
-      res.send("invalid");
+      return res.send("invalid");
     }
 
     const message = await Message.find({ chatId })
       .populate("chatId")
       .populate("sender", ["-email", "-password", "-id"]);
-
+    console.log(message);
     res.send(message);
+  });
+  app.patch("/api/message", verify, async (req, res) => {
+    const { messageId, newMessage } = req.body;
+
+    if (!messageId) {
+      return res.send("no messageid");
+    }
+    if (!newMessage) {
+      return res.send("no new Message");
+    }
+    const message = await Message.findById(messageId)
+      .populate("chatId")
+      .populate("sender", ["-email", "-password"]);
+    console.log(String(message.sender._id) === String(req.user));
+    console.log(req.user);
+    if (String(message.sender._id) === String(req.user)) {
+      const messageUpdate = await Message.updateOne(
+        { _id: messageId },
+        { message: newMessage }
+      );
+      return res.send(messageUpdate);
+    }
+    return res.send("you dont have excess to edit message");
   });
 };
