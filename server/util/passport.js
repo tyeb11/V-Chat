@@ -28,22 +28,20 @@ passport.use(
 
   new CustomStrategy(async function (req, done) {
     try {
+      customVerify(req, done);
       const { username, email, password } = req.body;
-      if (!username || !email || !password) {
-        customVerify(req, done);
-      } else {
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-          if (await bcrypt.compare(password, existingUser.password)) {
-            return done(null, existingUser._id);
-          }
 
-          return done("incorrect email or password");
+      const existingUser = await User.findOne({ email });
+      if (existingUser) {
+        if (await bcrypt.compare(password, existingUser.password)) {
+          return done(null, existingUser._id);
         }
-        const user = await new User(req.body);
-        await user.save();
-        done(null, user._id);
+
+        return done("incorrect email or password");
       }
+      const user = await new User(req.body);
+      await user.save();
+      done(null, user._id);
     } catch (e) {
       console.log(e);
     }
