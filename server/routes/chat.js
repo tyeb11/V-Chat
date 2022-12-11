@@ -12,6 +12,10 @@ export default (app) => {
       if (req.user == userId) {
         return res.send("invalid");
       }
+      let isValidUserId = await User.findById(userId);
+      if (!isValidUserId) {
+        return res.send("invalid user");
+      }
       let isChat = await Chat.find({
         groupChat: false,
         $and: [
