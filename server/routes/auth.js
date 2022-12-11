@@ -1,6 +1,7 @@
 import passport from "passport";
 import { User } from "../model/user.js";
 import { customVerify } from "../util/customVerify.js";
+import { verify } from "../util/verify.js";
 
 export default (app) => {
   app.post(
@@ -41,19 +42,19 @@ export default (app) => {
       res.redirect("/api/auth/current-user");
     }
   );
-  app.get("/api/auth/logout", async (req, res) => {
+  app.get("/api/auth/logout", verify, async (req, res) => {
     const user = await User.findByIdAndDelete(req.user);
-    
+
     await req.logout();
     req.session = null;
     res.clearCookie("session.sig");
     res.clearCookie("session");
     res.redirect("/");
   });
-  app.get("/api/auth/current-user", (req, res) => {
+  app.get("/api/auth/current-user", verify, (req, res) => {
     res.send(req.user);
   });
-  app.get("/chat", (req, res) => {
+  app.get("/chat", verify, (req, res) => {
     res.send(req.user);
   });
 };
