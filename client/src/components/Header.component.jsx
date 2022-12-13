@@ -18,8 +18,8 @@ function Header(props) {
   const navigate = useNavigate();
   const drawerWidth = 240;
   let navItems = [];
-  if (true) {
-    navItems = ["profile", "notifications"];
+  if (false) {
+    navItems = ["Profile", "Notifications"];
   } else {
     navItems = ["Sign in"];
   }
@@ -38,19 +38,43 @@ function Header(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {navItems.map((item) => {
+          if (item == "profile") {
+            return (
+              <ListItem key={item} disablePadding>
+                <ListItemButton sx={{ textAlign: "center" }}>
+                  <ListItemText primary={item} />
+                </ListItemButton>
+              </ListItem>
+            );
+          } else if (item == "notifications") {
+            return (
+              <ListItem key={item} disablePadding>
+                <ListItemButton sx={{ textAlign: "center" }}>
+                  <ListItemText primary={item} />
+                </ListItemButton>
+              </ListItem>
+            );
+          } else {
+            return (
+              <ListItem key={item} disablePadding>
+                <ListItemButton sx={{ textAlign: "center" }}>
+                  <ListItemText primary={item} />
+                </ListItemButton>
+              </ListItem>
+            );
+          }
+        })}
       </List>
     </Box>
   );
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  const handleSignInModal = () => {
+    //modal
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -73,11 +97,27 @@ function Header(props) {
             V-Chat
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "#fff" }}>
-                {item}
-              </Button>
-            ))}
+            {navItems.map((item) => {
+              if (item == "profile") {
+                return (
+                  <IconButton></IconButton> //profile icon tag
+                );
+              } else if (item == "notifications") {
+                return (
+                  <IconButton></IconButton> //profile icon tag
+                );
+              } else {
+                return (
+                  <Button
+                    key={item}
+                    sx={{ color: "#fff" }}
+                    onClick={() => handleSignInModal()}
+                  >
+                    {item}
+                  </Button>
+                );
+              }
+            })}
           </Box>
         </Toolbar>
       </AppBar>
