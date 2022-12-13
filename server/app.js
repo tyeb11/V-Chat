@@ -22,6 +22,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get("/", (req, res) => {
+  res.send("welcome");
+});
+
 authRoutes(app);
 userRoutes(app);
 chatRoutes(app);
