@@ -11,8 +11,9 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { BUTTON_TYPE_CLASSES } from "./Button.component";
+import Button from "./Button.component";
 
 function Header(props) {
   const navigate = useNavigate();
@@ -109,8 +110,7 @@ function Header(props) {
               } else {
                 return (
                   <Button
-                    key={item}
-                    sx={{ color: "#fff" }}
+                    buttonType={BUTTON_TYPE_CLASSES.signIn}
                     onClick={() => handleSignInModal()}
                   >
                     {item}
