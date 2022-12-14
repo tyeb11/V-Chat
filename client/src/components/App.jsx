@@ -3,6 +3,7 @@ import Home from "./routes/Home.routes";
 import About from "./routes/About.routes";
 import Chat from "./routes/Chat.routes";
 import Header from "./Header.component";
+import SignInModal from "./modals/SignIn.modal";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Route path="/about" index element={<About />} />
           <Route path="/chat" index element={<Chat />} />
         </Routes>
-        {/* {signin modal} */}
+        <SignInModal />
         {/* {user modal} */}
         {/* {adduser modal} */}
       </BrowserRouter>
