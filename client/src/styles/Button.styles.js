@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
+import { color } from "@mui/system";
 
 const stone = "#336b87";
 const mist = "#90afc5";
@@ -10,6 +11,8 @@ const coral = "#ED8C72";
 const grecianBlue = "#2988BC";
 const sea = "#2F496E";
 const plaster = "#F4EADE";
+const olive = "#ACBD78";
+const tuscanRed = "#B2473E";
 
 // THEME 51 Grecian Holiday
 
@@ -88,5 +91,53 @@ export const SignInButton = styled(BaseButton)({
   },
   "&:focus": {
     boxShadow: "0 0 0 0.2rem rgba( 237 ,140 ,114,.5)",
+  },
+});
+
+export const GoogleSignInButton = styled(BaseButton)({
+  backgroundColor: sea,
+  fontSize: "1.2rem",
+  color: plaster,
+
+  border: `2px solid ${sea}`,
+
+  "&:hover": {
+    backgroundColor: coral,
+    color: sea,
+    border: `2px solid ${sea}`,
+  },
+});
+export const GithubSignInButton = styled(GoogleSignInButton)({});
+export const SignInFormButton = styled(GoogleSignInButton)({
+  backgroundColor: coral,
+  color: sea,
+  border: `2px solid ${sea}`,
+  "&:hover": {
+    backgroundColor: sea,
+    color: plaster,
+    border: `2px solid ${sea}`,
+  },
+});
+
+export const CancelButton = styled(BaseButton)({
+  backgroundColor: plaster,
+  color: tuscanRed,
+  border: `3px solid ${tuscanRed}`,
+  fontSize: "1.2em",
+  fontWeight: "bold",
+  "&:hover": {
+    backgroundColor: tuscanRed,
+    color: plaster,
+  },
+});
+export const InvCancelButton = styled(BaseButton)({
+  backgroundColor: plaster,
+  color: shadow,
+  border: `3px solid ${shadow}`,
+  fontSize: "1.2em",
+  fontWeight: "bold",
+  "&:hover": {
+    backgroundColor: shadow,
+    color: plaster,
   },
 });
