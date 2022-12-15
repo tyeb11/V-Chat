@@ -18,9 +18,9 @@ export const buttonContainer = {
   display: "flex",
   justifyContent: "center",
   marginTop: "10px",
-  flexDirection: "column",
-  width: "35%",
-  gap: "20px",
+  flexDirection: "row",
+  width: "100%",
+  gap: "50px",
 };
 
 export const cancelContainer = {
@@ -48,4 +48,29 @@ export const cartContainer = {
   maxHeight: "30vh",
   textAlign: "center",
   backgroundColor: "whitesmoke",
+};
+
+export const createAccountForm = {};
+export const createAccountInputFields = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "10px",
+  flexDirection: "row",
+  width: "100%",
+  gap: "50px",
+};
+export const createAccountSubmitButton = {
+  marginTop: "30px",
+};
+export const logInAccountForm = {};
+export const logInAccountInputFields = {
+  display: "flex",
+  justifyContent: "center",
+  marginTop: "10px",
+  flexDirection: "row",
+  width: "100%",
+  gap: "50px",
+};
+export const logInAccountSubmitButton = {
+  marginTop: "20px",
 };

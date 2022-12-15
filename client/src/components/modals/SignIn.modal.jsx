@@ -61,30 +61,92 @@ function SignInModal(props) {
           <Box sx={style}>
             <Box sx={headingContainer}>
               <TabContext value={value}>
-                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                  <TabList
-                    onChange={handleChange}
-                    aria-label="lab API tabs example"
-                  >
-                    <Tab label="Log in" value={1} />
-                    <Tab label="create account  " value={2} />
+                <Box
+                  sx={{
+                    borderBottom: 1,
+                    borderColor: "divider",
+                  }}
+                >
+                  <TabList onChange={handleChange} centered>
+                    <Tab
+                      sx={{
+                        "&.Mui-selected": {
+                          color: "#2F496E",
+                        },
+                        "&.Mui-focusVisible": {
+                          backgroundColor: "#2F496E",
+                        },
+                        "& .MuiTabs-indicator": {
+                          backgroundColor: "#2F496E",
+                        },
+                      }}
+                      label="Log in"
+                      value={1}
+                    />
+                    <Tab
+                      label="create account"
+                      sx={{
+                        "&.Mui-selected": {
+                          color: "#2F496E",
+                        },
+                        "&.Mui-focusVisible": {
+                          backgroundColor: "#2F496E",
+                        },
+                        "& .MuiTabs-indicator": {
+                          backgroundColor: "#2F496E",
+                        },
+                      }}
+                      value={2}
+                    />
                   </TabList>
                 </Box>
                 <TabPanel value={1}>
-                  <Box sx={createAccountForm}>
-                    <Box sx={createAccountInputFields}>
+                  <Box sx={logInAccountForm}>
+                    <Box sx={logInAccountInputFields}>
                       <TextField
                         helperText="Please enter your email"
                         id="demo-helper-text-aligned"
                         label="Email"
+                        sx={{
+                          "& label.Mui-focused": {
+                            color: "#2F496E",
+                          },
+                          "& .MuiInput-underline:after": {
+                            borderBottomColor: "#2F496E",
+                          },
+                          "& .MuiOutlinedInput-root": {
+                            "&:hover fieldset": {
+                              borderColor: "#2F496E",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#2F496E",
+                            },
+                          },
+                        }}
                       />
                       <TextField
                         helperText="Please enter your password"
                         id="demo-helper-text-aligned"
                         label="Password"
+                        sx={{
+                          "& label.Mui-focused": {
+                            color: "#2F496E",
+                          },
+                          "& .MuiInput-underline:after": {
+                            borderBottomColor: "#2F496E",
+                          },
+                          "& .MuiOutlinedInput-root": {
+                            "&:hover fieldset": {
+                              borderColor: "#2F496E",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#2F496E",
+                            },
+                          },
+                        }}
                       />
                     </Box>
-                    <Box sx={createAccountSubmitButton}>
+                    <Box sx={logInAccountSubmitButton}>
                       <Button
                         endIcon={<KeyboardArrowUpIcon />}
                         buttonType={BUTTON_TYPE_CLASSES.sign_in_form_submit}
@@ -95,25 +157,58 @@ function SignInModal(props) {
                   </Box>
                 </TabPanel>
                 <TabPanel value={2}>
-                  <Box sx={logInAccountForm}>
-                    <Box sx={logInAccountInputFields}>
+                  <Box sx={createAccountForm}>
+                    <Box sx={createAccountInputFields}>
                       <TextField
                         helperText="Please enter your user name"
                         id="demo-helper-text-aligned"
                         label="User Name"
+                        sx={{
+                          "& label.Mui-focused": {
+                            color: "#2F496E",
+                          },
+                          "& .MuiInput-underline:after": {
+                            borderBottomColor: "#2F496E",
+                          },
+                          "& .MuiOutlinedInput-root": {
+                            "&:hover fieldset": {
+                              borderColor: "#2F496E",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#2F496E",
+                            },
+                          },
+                        }}
                       />
                       <TextField
                         helperText="Please enter your email"
                         id="demo-helper-text-aligned"
                         label="Email"
-                      />
-                      <TextField
-                        helperText="Please enter your password"
-                        id="demo-helper-text-aligned"
-                        label="Password"
+                        sx={{
+                          "& label.Mui-focused": {
+                            color: "#2F496E",
+                          },
+                          "& .MuiInput-underline:after": {
+                            borderBottomColor: "#2F496E",
+                          },
+                          "& .MuiOutlinedInput-root": {
+                            "&:hover fieldset": {
+                              borderColor: "#2F496E",
+                            },
+                            "&.Mui-focused fieldset": {
+                              borderColor: "#2F496E",
+                            },
+                          },
+                        }}
                       />
                     </Box>
-                    <Box sx={logInAccountSubmitButton}>
+                    <TextField
+                      helperText="Please enter your password"
+                      id="demo-helper-text-aligned"
+                      label="Password"
+                      sx={{ marginTop: "10px" }}
+                    />
+                    <Box sx={createAccountSubmitButton}>
                       <Button
                         endIcon={<KeyboardArrowUpIcon />}
                         buttonType={BUTTON_TYPE_CLASSES.sign_in_form_submit}
