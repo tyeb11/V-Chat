@@ -12,11 +12,18 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
+import KeyboardArrowUpIcon from "@mui/icons-material/PanToolAlt";
 import {
   style,
   cancelContainer,
   buttonContainer,
   headingContainer,
+  createAccountForm,
+  createAccountInputFields,
+  createAccountSubmitButton,
+  logInAccountForm,
+  logInAccountInputFields,
+  logInAccountSubmitButton,
 } from "../../styles/SignInModal.styles";
 
 function SignInModal(props) {
@@ -64,53 +71,71 @@ function SignInModal(props) {
                   </TabList>
                 </Box>
                 <TabPanel value={1}>
-                  <TextField
-                    helperText="Please enter your email"
-                    id="demo-helper-text-aligned"
-                    label="Email"
-                  />
-                  <TextField
-                    helperText="Please enter your password"
-                    id="demo-helper-text-aligned"
-                    label="Password"
-                  />
-                  <Button buttonType={BUTTON_TYPE_CLASSES.submit}>
-                    Submit
-                  </Button>
+                  <Box sx={createAccountForm}>
+                    <Box sx={createAccountInputFields}>
+                      <TextField
+                        helperText="Please enter your email"
+                        id="demo-helper-text-aligned"
+                        label="Email"
+                      />
+                      <TextField
+                        helperText="Please enter your password"
+                        id="demo-helper-text-aligned"
+                        label="Password"
+                      />
+                    </Box>
+                    <Box sx={createAccountSubmitButton}>
+                      <Button
+                        endIcon={<KeyboardArrowUpIcon />}
+                        buttonType={BUTTON_TYPE_CLASSES.sign_in_form_submit}
+                      >
+                        Submit
+                      </Button>
+                    </Box>
+                  </Box>
                 </TabPanel>
                 <TabPanel value={2}>
-                  <TextField
-                    helperText="Please enter your user name"
-                    id="demo-helper-text-aligned"
-                    label="User Name"
-                  />
-                  <TextField
-                    helperText="Please enter your email"
-                    id="demo-helper-text-aligned"
-                    label="Email"
-                  />
-                  <TextField
-                    helperText="Please enter your password"
-                    id="demo-helper-text-aligned"
-                    label="Password"
-                  />
-                  <Button buttonType={BUTTON_TYPE_CLASSES.submit}>
-                    Submit
-                  </Button>
+                  <Box sx={logInAccountForm}>
+                    <Box sx={logInAccountInputFields}>
+                      <TextField
+                        helperText="Please enter your user name"
+                        id="demo-helper-text-aligned"
+                        label="User Name"
+                      />
+                      <TextField
+                        helperText="Please enter your email"
+                        id="demo-helper-text-aligned"
+                        label="Email"
+                      />
+                      <TextField
+                        helperText="Please enter your password"
+                        id="demo-helper-text-aligned"
+                        label="Password"
+                      />
+                    </Box>
+                    <Box sx={logInAccountSubmitButton}>
+                      <Button
+                        endIcon={<KeyboardArrowUpIcon />}
+                        buttonType={BUTTON_TYPE_CLASSES.sign_in_form_submit}
+                      >
+                        Submit
+                      </Button>
+                    </Box>
+                  </Box>
                 </TabPanel>
               </TabContext>
             </Box>
             <Box sx={buttonContainer}>
               <Button
                 startIcon={<BsGoogle />}
-                buttonType={BUTTON_TYPE_CLASSES.google}
+                buttonType={BUTTON_TYPE_CLASSES.google_signin}
                 onClick={() => handleGoogle()}
               >
                 Google
               </Button>
               <Button
                 startIcon={<BsGithub />}
-                buttonType={BUTTON_TYPE_CLASSES.github}
+                buttonType={BUTTON_TYPE_CLASSES.github_signin}
                 onClick={() => handleGithub()}
               >
                 Github
