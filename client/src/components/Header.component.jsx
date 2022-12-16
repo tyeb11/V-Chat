@@ -14,13 +14,15 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import { BUTTON_TYPE_CLASSES } from "./Button.component";
 import Button from "./Button.component";
+import UserAvatar from "./UserAvatar.component";
+import Notification from "./Notification.component";
 
 function Header(props) {
   const navigate = useNavigate();
   const drawerWidth = 240;
   let navItems = [];
-  if (false) {
-    navItems = ["Profile", "Notifications"];
+  if (true) {
+    navItems = ["Notifications", "Profile"];
   } else {
     navItems = ["Sign in"];
   }
@@ -99,13 +101,17 @@ function Header(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => {
-              if (item == "profile") {
+              if (item == "Profile") {
                 return (
-                  <IconButton></IconButton> //profile icon tag
+                  <IconButton sx={{ p: 0, marginLeft: "30px" }}>
+                    <UserAvatar username={"Tayyeb"} />
+                  </IconButton> //profile icon tag
                 );
-              } else if (item == "notifications") {
+              } else if (item == "Notifications") {
                 return (
-                  <IconButton></IconButton> //profile icon tag
+                  <IconButton>
+                    <Notification />
+                  </IconButton> //profile icon tag
                 );
               } else {
                 return (
