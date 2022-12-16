@@ -104,7 +104,6 @@ function SignInModal(props) {
                   <Box sx={logInAccountForm}>
                     <Box sx={logInAccountInputFields}>
                       <TextField
-                        helperText="Please enter your email"
                         id="demo-helper-text-aligned"
                         label="Email"
                         sx={{
@@ -125,7 +124,6 @@ function SignInModal(props) {
                         }}
                       />
                       <TextField
-                        helperText="Please enter your password"
                         id="demo-helper-text-aligned"
                         label="Password"
                         sx={{
@@ -160,7 +158,6 @@ function SignInModal(props) {
                   <Box sx={createAccountForm}>
                     <Box sx={createAccountInputFields}>
                       <TextField
-                        helperText="Please enter your user name"
                         id="demo-helper-text-aligned"
                         label="User Name"
                         sx={{
@@ -181,7 +178,6 @@ function SignInModal(props) {
                         }}
                       />
                       <TextField
-                        helperText="Please enter your email"
                         id="demo-helper-text-aligned"
                         label="Email"
                         sx={{
@@ -203,10 +199,25 @@ function SignInModal(props) {
                       />
                     </Box>
                     <TextField
-                      helperText="Please enter your password"
                       id="demo-helper-text-aligned"
                       label="Password"
-                      sx={{ marginTop: "10px" }}
+                      sx={{
+                        marginTop: "20px",
+                        "& label.Mui-focused": {
+                          color: "#2F496E",
+                        },
+                        "& .MuiInput-underline:after": {
+                          borderBottomColor: "#2F496E",
+                        },
+                        "& .MuiOutlinedInput-root": {
+                          "&:hover fieldset": {
+                            borderColor: "#2F496E",
+                          },
+                          "&.Mui-focused fieldset": {
+                            borderColor: "#2F496E",
+                          },
+                        },
+                      }}
                     />
                     <Box sx={createAccountSubmitButton}>
                       <Button

@@ -15,7 +15,7 @@ function App() {
           <Route path="/about" index element={<About />} />
           <Route path="/chat" index element={<Chat />} />
         </Routes>
-        <SignInModal />
+        {/* <SignInModal /> */}
         {/* {user modal} */}
         {/* {adduser modal} */}
       </BrowserRouter>
