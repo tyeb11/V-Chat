@@ -4,6 +4,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { ReactComponent as Hero } from "../assets/hero.svg";
+import { sea, coral, plaster } from "../styles/ColorTheme.styles";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -11,13 +13,36 @@ function TabPanel(props) {
   return (
     <div
       role="tabpanel"
-      hidden={value !== index}
       id={`vertical-tabpanel-${index}`}
       aria-labelledby={`vertical-tab-${index}`}
       {...other}
     >
+      {value === -1 && (
+        <Box
+          sx={{
+            p: 3,
+            height: "85vh",
+            width: "75vw",
+            marginTop: "-80px",
+            marginRight: "2px",
+          }}
+        >
+          <Hero style={{ width: "75vw", height: "75vh" }} />
+          <Typography variant="h5" component="h2" sx={{ marginTop: "20px" }}>
+            Send and receive messages
+          </Typography>
+        </Box>
+      )}
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box
+          sx={{
+            p: 3,
+            height: "85vh",
+            width: "75vw",
+            marginTop: "-80px",
+            marginRight: "2px",
+          }}
+        >
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -39,7 +64,7 @@ function a11yProps(index) {
 }
 
 export default function VerticalTabs() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(-1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -60,11 +85,22 @@ export default function VerticalTabs() {
         value={value}
         onChange={handleChange}
         aria-label="Vertical tabs example"
-        sx={{ borderRight: 1, borderColor: "divider" }}
+        sx={{
+          borderRight: 1,
+          borderColor: "divider",
+          height: "85vh",
+          minWidth: "25vw",
+          marginTop: "25px",
+          backgroundColor: plaster,
+        }}
       >
         <Tab label="Item One" {...a11yProps(0)} />
         <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
+        <Tab
+          label="Item Three"
+          sx={{ backgroundColor: coral }}
+          {...a11yProps(2)}
+        />
         <Tab label="Item Four" {...a11yProps(3)} />
         <Tab label="Item Five" {...a11yProps(4)} />
         <Tab label="Item Six" {...a11yProps(5)} />
