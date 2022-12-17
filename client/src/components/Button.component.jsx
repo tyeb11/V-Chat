@@ -8,6 +8,7 @@ import {
   CancelButton,
   InvCancelButton,
   SignInFormButton,
+  CreateGroupButton,
 } from "../styles/Button.styles.js";
 
 export const BUTTON_TYPE_CLASSES = {
@@ -17,6 +18,7 @@ export const BUTTON_TYPE_CLASSES = {
   github_signin: "github_signin",
   cancel: "cancel",
   invcancel: "inv_cancel",
+  create_group: "create_group",
   sign_in_form_submit: "sign_in_form_submit",
 };
 
@@ -28,6 +30,7 @@ const getButton = (buttonType = BUTTON_TYPE_CLASSES.base) =>
     [BUTTON_TYPE_CLASSES.github_signin]: GithubSignInButton,
     [BUTTON_TYPE_CLASSES.cancel]: CancelButton,
     [BUTTON_TYPE_CLASSES.invcancel]: InvCancelButton,
+    [BUTTON_TYPE_CLASSES.create_group]: CreateGroupButton,
     [BUTTON_TYPE_CLASSES.sign_in_form_submit]: SignInFormButton,
   }[buttonType]);
 

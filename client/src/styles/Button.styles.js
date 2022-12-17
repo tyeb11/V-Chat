@@ -141,3 +141,8 @@ export const InvCancelButton = styled(BaseButton)({
     color: plaster,
   },
 });
+
+export const CreateGroupButton = styled(GoogleSignInButton)({
+  height: "100%",
+  marginTop: "17px",
+});
