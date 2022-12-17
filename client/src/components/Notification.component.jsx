@@ -19,9 +19,9 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-function Notification({ cartItems, getCartItems }) {
+function Notification() {
   return (
-    <IconButton aria-label="cart">
+    <IconButton aria-label="notifications">
       <StyledBadge
         badgeContent={3}
         sx={{ color: "#F4EADE", "&:hover": { color: "#ED8C72" } }}
